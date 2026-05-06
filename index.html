@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Comparativo Financiero — Municipalidad de Caá Catí</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -21,13 +21,13 @@
   --border:        rgba(255,255,255,0.07);
   --border2:       rgba(255,255,255,0.12);
   --text:          #FFFFFF;
-  --text-dim:      rgba(255,255,255,0.45);
-  --text-muted:    rgba(255,255,255,0.22);
+  --text-dim:      rgba(255,255,255,0.70);
+  --text-muted:    rgba(255,255,255,0.45);
   --green:         #27ae60;
   --green-bg:      rgba(39,174,96,0.12);
   --red:           #e74c3c;
   --red-bg:        rgba(231,76,60,0.12);
-  --font-num:      'Barlow Condensed', sans-serif;
+  --font-num:      'Inter', sans-serif;
   --font-ui:       'Inter', sans-serif;
 }
 
@@ -488,13 +488,9 @@ function renderizar(data, mesA, mesB) {
 
   const pIng = pctVal(totIngA, totIngB);
   const pEgr = pctVal(totEgrA, totEgrB);
-  const pSal = pctVal(saldoA,  saldoB);
 
   const piS = pctStr(pIng, false);
   const peS = pctStr(pEgr, true);
-  const psS = pctStr(pSal, false);
-  const saldoCls = saldoB >= 0 ? "pos" : "neg";
-  const sBadgeCls = saldoB >= 0 ? "badge-pos" : "badge-neg";
 
   let html = `<div class="resumen-titulo">Resumen ejecutivo</div>`;
   html += `<div class="resumen-cards">
@@ -512,23 +508,15 @@ function renderizar(data, mesA, mesB) {
     </div>
   </div>`;
 
-  html += `<div class="resultado-card">
-    <div class="resultado-left">
-      <div class="resultado-label">Resultado del mes</div>
-      <div class="resultado-val ${saldoCls}">${fmtM(saldoB)}</div>
-    </div>
-    <span class="resultado-badge ${sBadgeCls}">${psS.s} vs ${lA}</span>
-  </div>`;
-
   html += `<div class="seccion-label">Ingresos</div>`;
-  unionKeys(ingA, ingB).forEach((cat, i) => {
+  unionKeys(ingA, ingB).forEach((cat) => {
     const esInfo = CATS_INFORMATIVAS.includes(cat);
-    html += buildBloque(cat, ingA[cat]||[], ingB[cat]||[], lA, lB, i===0, getIconoIng(cat), esInfo);
+    html += buildBloque(cat, ingA[cat]||[], ingB[cat]||[], lA, lB, false, getIconoIng(cat), esInfo);
   });
 
   html += `<div class="seccion-label">Egresos</div>`;
-  unionKeys(egrA, egrB).forEach((cat, i) => {
-    html += buildBloque(cat, egrA[cat]||[], egrB[cat]||[], lA, lB, i===0, getIconoEgr(cat), false);
+  unionKeys(egrA, egrB).forEach((cat) => {
+    html += buildBloque(cat, egrA[cat]||[], egrB[cat]||[], lA, lB, false, getIconoEgr(cat), false);
   });
 
   document.getElementById("contenido").innerHTML = html;
