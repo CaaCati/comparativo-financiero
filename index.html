@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Comparativo Financiero \u2014 Municipalidad de Ca\u00e1 Cat\u00ed</title>
+<title>Comparativo Financiero — Municipalidad de Caá Catí</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Raleway:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -37,7 +37,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* \u2500\u2500 HEADER \u2500\u2500 */
+/* ── HEADER ── */
 .header {
   display: flex; align-items: center; gap: 12px;
   padding: 18px 18px 14px;
@@ -57,7 +57,7 @@ html, body {
 }
 .header-sub { font-size: 11px; color: var(--naranja-light); margin-top: 1px; }
 
-/* \u2500\u2500 SELECTOR DE MESES \u2500\u2500 */
+/* ── SELECTOR DE MESES ── */
 .selector-wrap {
   padding: 14px 16px;
   background: var(--surface);
@@ -101,7 +101,7 @@ html, body {
 .btn-comparar:active { opacity: 0.8; }
 .btn-comparar:disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* \u2500\u2500 LOADING \u2500\u2500 */
+/* ── LOADING ── */
 #loading {
   display: none; flex-direction: column;
   align-items: center; justify-content: center;
@@ -116,7 +116,7 @@ html, body {
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-txt { font-size: 12px; color: var(--text-dim); }
 
-/* \u2500\u2500 ERROR \u2500\u2500 */
+/* ── ERROR ── */
 #error-box {
   display: none; margin: 16px;
   background: var(--red-bg); border: 1px solid rgba(231,76,60,0.25);
@@ -124,10 +124,10 @@ html, body {
   font-size: 13px; color: var(--red);
 }
 
-/* \u2500\u2500 CONTENIDO \u2500\u2500 */
+/* ── CONTENIDO ── */
 #contenido { display: none; padding: 14px 14px 32px; }
 
-/* \u2500\u2500 RESUMEN EJECUTIVO \u2500\u2500 */
+/* ── RESUMEN EJECUTIVO ── */
 .resumen-titulo {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
   color: var(--text-muted); margin-bottom: 8px; padding: 0 2px;
@@ -165,13 +165,13 @@ html, body {
 .badge-pos { background: var(--green-bg); color: var(--green); }
 .badge-neg { background: var(--red-bg); color: var(--red); }
 
-/* \u2500\u2500 SECCI\u00d3N LABEL \u2500\u2500 */
+/* ── SECCIÓN LABEL ── */
 .seccion-label {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
   color: var(--text-muted); margin: 16px 0 8px; padding: 0 2px;
 }
 
-/* \u2500\u2500 BLOQUES \u2500\u2500 */
+/* ── BLOQUES ── */
 .bloque {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -209,7 +209,7 @@ html, body {
 }
 .chevron.open { transform: rotate(180deg); }
 
-/* \u2500\u2500 INFO BADGE para subsidios \u2500\u2500 */
+/* ── INFO BADGE para subsidios ── */
 .info-badge {
   font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
   color: var(--naranja); background: var(--naranja-glow);
@@ -218,7 +218,7 @@ html, body {
   margin-left: 6px;
 }
 
-/* \u2500\u2500 TABLA DETALLE \u2500\u2500 */
+/* ── TABLA DETALLE ── */
 .bloque-body { border-top: 1px solid var(--border); display: none; }
 .bloque-body.open { display: block; }
 .col-headers {
@@ -253,7 +253,7 @@ html, body {
 .subtotal-val { font-size: 12px; font-weight: 700; color: var(--text); text-align: right; }
 .subtotal-var { font-size: 11px; font-weight: 700; text-align: right; }
 
-/* \u2500\u2500 EMPTY STATE \u2500\u2500 */
+/* ── EMPTY STATE ── */
 #empty {
   display: none; padding: 50px 20px;
   text-align: center; color: var(--text-muted); font-size: 13px;
@@ -266,13 +266,13 @@ html, body {
   <img class="header-logo" src="https://caacati.github.io/pagos-municipales/IMG-20260325-WA0013.png"
        alt="Logo" onerror="this.style.background='#F07820'">
   <div class="header-text">
-    <div class="header-title">MUNICIPALIDAD DE CA\u00c1 CAT\u00cd</div>
+    <div class="header-title">MUNICIPALIDAD DE CAÁ CATÍ</div>
     <div class="header-sub">Comparativo Financiero</div>
   </div>
 </div>
 
 <div class="selector-wrap">
-  <div class="selector-label">Seleccion\u00e1 los meses a comparar</div>
+  <div class="selector-label">Seleccioná los meses a comparar</div>
   <div class="selector-row">
     <select id="selA"></select>
     <div class="vs-badge">VS</div>
@@ -299,7 +299,7 @@ const MESES_LABEL = {
   "09":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"
 };
 
-// Categor\u00edas que son solo informativas (no suman al total de ingresos)
+// Categorías que son solo informativas (no suman al total de ingresos)
 const CATS_INFORMATIVAS = ["Subsidios"];
 
 function labelMes(m) {
@@ -308,18 +308,18 @@ function labelMes(m) {
 }
 
 function fmt(n) {
-  if (!n && n !== 0) return "\u2014";
+  if (!n && n !== 0) return "—";
   return "$ " + Math.round(n).toLocaleString("es-AR");
 }
 function fmtM(n) {
-  if (!n && n !== 0) return "\u2014";
+  if (!n && n !== 0) return "—";
   const abs = Math.abs(n);
   if (abs >= 1e9) return "$ " + (n/1e9).toFixed(1).replace(".",",") + "B";
   if (abs >= 1e6) return "$ " + (n/1e6).toFixed(1).replace(".",",") + "M";
   return fmt(n);
 }
 function pctHtml(a, b, clsBase) {
-  if (!a) return `<span class="${clsBase} pct-neu">\u2014</span>`;
+  if (!a) return `<span class="${clsBase} pct-neu">—</span>`;
   const p = (b - a) / a * 100;
   const s = (p >= 0 ? "+" : "") + Math.round(p) + "%";
   const cls = p > 0 ? "pct-pos" : p < 0 ? "pct-neg" : "pct-neu";
@@ -330,7 +330,7 @@ function pctVal(a, b) {
   return (b - a) / a * 100;
 }
 
-// \u2500\u2500 Carga lista de meses disponibles \u2500\u2500
+// ── Carga lista de meses disponibles ──
 async function cargarMeses() {
   try {
     const r = await fetch(SCRIPT_URL + "?accion=meses");
@@ -347,7 +347,7 @@ async function cargarMeses() {
       selB.innerHTML += `<option value="${m}">${lbl}</option>`;
     });
 
-    // Por defecto: selA = ante\u00faltimo, selB = \u00faltimo
+    // Por defecto: selA = anteúltimo, selB = último
     if (d.meses.length >= 2) {
       selA.value = d.meses[d.meses.length - 2];
       selB.value = d.meses[d.meses.length - 1];
@@ -360,7 +360,7 @@ async function cargarMeses() {
   }
 }
 
-// \u2500\u2500 Carga y renderiza el comparativo \u2500\u2500
+// ── Carga y renderiza el comparativo ──
 async function cargarDatos() {
   const mesA = document.getElementById("selA").value;
   const mesB = document.getElementById("selB").value;
@@ -395,11 +395,11 @@ function setEstado(estado) {
 
 function mostrarError(msg) {
   const el = document.getElementById("error-box");
-  el.textContent = "\u26a0 " + msg;
+  el.textContent = "⚠ " + msg;
   setEstado("error-box");
 }
 
-// \u2500\u2500 Render principal \u2500\u2500
+// ── Render principal ──
 function renderizar(data, mesA, mesB) {
   const lA = labelMes(mesA);
   const lB = labelMes(mesB);
@@ -409,7 +409,7 @@ function renderizar(data, mesA, mesB) {
   const egrA = data.egresos_a  || {};
   const egrB = data.egresos_b  || {};
 
-  // Totales reales (excluye categor\u00edas informativas)
+  // Totales reales (excluye categorías informativas)
   const totIngA = sumarExcluyendo(ingA, CATS_INFORMATIVAS);
   const totIngB = sumarExcluyendo(ingB, CATS_INFORMATIVAS);
   const totEgrA = sumarTodo(egrA);
@@ -423,17 +423,17 @@ function renderizar(data, mesA, mesB) {
 
   let html = "";
 
-  // \u2500\u2500 Resumen ejecutivo \u2500\u2500
+  // ── Resumen ejecutivo ──
   html += `<div class="resumen-titulo">Resumen ejecutivo</div>`;
   html += `<div class="resumen-cards">`;
-  html += tarjetaResumen("\ud83d\udce5", "Ingresos", lB, fmtM(totIngB), pIng, lA, "solo Cuenta 4 + Cobranzas");
-  html += tarjetaResumen("\ud83d\udce4", "Egresos",  lB, fmtM(totEgrB), pEgr, lA, "sueldos + gastos corrientes", true);
+  html += tarjetaResumen("📥", "Ingresos", lB, fmtM(totIngB), pIng, lA, "solo Cuenta 4 + Cobranzas");
+  html += tarjetaResumen("📤", "Egresos",  lB, fmtM(totEgrB), pEgr, lA, "sueldos + gastos corrientes", true);
   html += `</div>`;
 
   // Saldo
   const sCls = saldoB >= 0 ? "pos" : "neg";
   const sBadgeCls = saldoB >= 0 ? "badge-pos" : "badge-neg";
-  const sVarS = pSal !== null ? ((pSal>=0?"+":"")+Math.round(pSal)+"%") : "\u2014";
+  const sVarS = pSal !== null ? ((pSal>=0?"+":"")+Math.round(pSal)+"%") : "—";
   html += `<div class="resultado-card">
     <div>
       <div class="resultado-label">Resultado del mes</div>
@@ -442,7 +442,7 @@ function renderizar(data, mesA, mesB) {
     <span class="resultado-badge ${sBadgeCls}">${sVarS} vs ${lA}</span>
   </div>`;
 
-  // \u2500\u2500 Ingresos \u2500\u2500
+  // ── Ingresos ──
   html += `<div class="seccion-label">Ingresos</div>`;
   const catsIng = unionKeys(ingA, ingB);
   catsIng.forEach((cat, i) => {
@@ -451,7 +451,7 @@ function renderizar(data, mesA, mesB) {
       i === 0, getIconoIng(cat), esInfo);
   });
 
-  // \u2500\u2500 Egresos \u2500\u2500
+  // ── Egresos ──
   html += `<div class="seccion-label">Egresos</div>`;
   const catsEgr = unionKeys(egrA, egrB);
   catsEgr.forEach((cat, i) => {
@@ -466,7 +466,7 @@ function tarjetaResumen(ico, titulo, mes, val, pct, mesAnterior, nota, invertirC
   const p = pct !== null ? Math.round(pct) : null;
   const positivo = invertirColor ? (p !== null && p <= 0) : (p !== null && p >= 0);
   const cls = p === null ? "" : positivo ? "pos" : "neg";
-  const s = p === null ? "\u2014" : (p >= 0 ? "+" : "") + p + "%";
+  const s = p === null ? "—" : (p >= 0 ? "+" : "") + p + "%";
   return `<div class="rcard">
     <div class="rcard-label">${ico} ${titulo}</div>
     <div class="rcard-val">${val}</div>
@@ -480,7 +480,7 @@ function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
   const totA = itemsA.reduce((s,i) => s + i.monto, 0);
   const totB = itemsB.reduce((s,i) => s + i.monto, 0);
   const pct  = pctVal(totA||null, totB);
-  const pctS = pct !== null ? ((pct>=0?"+":"")+Math.round(pct)+"%") : "\u2014";
+  const pctS = pct !== null ? ((pct>=0?"+":"")+Math.round(pct)+"%") : "—";
   const pctCls = pct === null ? "pct-neu" : pct > 0 ? "pct-pos" : "pct-neg";
 
   const allConceptos = unionConceptos(itemsA, itemsB);
@@ -490,12 +490,12 @@ function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
     const a = itemsA.find(i => i.concepto === c)?.monto ?? null;
     const b = itemsB.find(i => i.concepto === c)?.monto ?? null;
     const p = pctVal(a, b ?? 0);
-    const pS = p !== null ? ((p>=0?"+":"")+Math.round(p)+"%") : "\u2014";
+    const pS = p !== null ? ((p>=0?"+":"")+Math.round(p)+"%") : "—";
     const pC = p === null ? "pct-neu" : p > 0 ? "pos" : "neg";
     rows += `<div class="item-row">
       <span class="item-concepto">${c}</span>
-      <span class="item-monto${a===null?' ausente':''}">${a !== null ? fmtM(a) : "\u2014"}</span>
-      <span class="item-monto${b===null?' ausente':''}">${b !== null ? fmtM(b) : "\u2014"}</span>
+      <span class="item-monto${a===null?' ausente':''}">${a !== null ? fmtM(a) : "—"}</span>
+      <span class="item-monto${b===null?' ausente':''}">${b !== null ? fmtM(b) : "—"}</span>
       <span class="item-var ${pC}">${pS}</span>
     </div>`;
   });
@@ -508,12 +508,12 @@ function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
         <div class="bloque-icon">${icono}</div>
         <div>
           <div class="bloque-nombre">${cat}${infoBadge}</div>
-          <div class="bloque-subtotales">${fmtM(totA)} \u2192 ${fmtM(totB)}</div>
+          <div class="bloque-subtotales">${fmtM(totA)} → ${fmtM(totB)}</div>
         </div>
       </div>
       <div class="bloque-der">
         <span class="bloque-pct ${pctCls}">${pctS}</span>
-        <span class="chevron${abierto?' open':''}" id="chev_${id}">\u2304</span>
+        <span class="chevron${abierto?' open':''}" id="chev_${id}">⌄</span>
       </div>
     </div>
     <div class="bloque-body${abierto?' open':''}" id="${id}">
@@ -542,7 +542,7 @@ function toggleBloque(id) {
   chev.classList.toggle("open", !open);
 }
 
-// \u2500\u2500 Helpers \u2500\u2500
+// ── Helpers ──
 function sumarTodo(obj) {
   return Object.values(obj).flat().reduce((s,i) => s + i.monto, 0);
 }
@@ -559,6 +559,19 @@ function unionConceptos(a, b) {
   return [...new Set([...a.map(i=>i.concepto), ...b.map(i=>i.concepto)])];
 }
 function getIconoIng(cat) {
-  if (cat === "Cuenta 4")   return "\ud83c\udfdb\ufe0f";
-  if (cat === "Subsidios")  return "\ud83d\udce8";
-  if (cat === "Cobranzas")  return
+  if (cat === "Cuenta 4")   return "🏛️";
+  if (cat === "Subsidios")  return "📨";
+  if (cat === "Cobranzas")  return "💰";
+  return "📥";
+}
+function getIconoEgr(cat) {
+  if (cat === "Sueldos")           return "👥";
+  if (cat === "Gastos Corrientes") return "📋";
+  return "📤";
+}
+
+// ── Init ──
+cargarMeses();
+</script>
+</body>
+</html>
