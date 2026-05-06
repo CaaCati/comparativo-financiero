@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Comparativo Financiero — Municipalidad de Caá Catí</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Raleway:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -13,7 +13,7 @@
   --naranja:       #F07820;
   --naranja-dark:  #C95F0A;
   --naranja-light: #FFA04A;
-  --naranja-glow:  rgba(240,120,32,0.18);
+  --naranja-glow:  rgba(240,120,32,0.15);
   --bg:            #0C0C0C;
   --surface:       #161616;
   --surface2:      #1E1E1E;
@@ -22,17 +22,19 @@
   --border2:       rgba(255,255,255,0.12);
   --text:          #FFFFFF;
   --text-dim:      rgba(255,255,255,0.45);
-  --text-muted:    rgba(255,255,255,0.25);
-  --green:         #2ecc71;
-  --green-bg:      rgba(46,204,113,0.12);
+  --text-muted:    rgba(255,255,255,0.22);
+  --green:         #27ae60;
+  --green-bg:      rgba(39,174,96,0.12);
   --red:           #e74c3c;
   --red-bg:        rgba(231,76,60,0.12);
+  --font-num:      'Barlow Condensed', sans-serif;
+  --font-ui:       'Inter', sans-serif;
 }
 
 html, body {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-ui);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
@@ -40,26 +42,37 @@ html, body {
 /* ── HEADER ── */
 .header {
   display: flex; align-items: center; gap: 12px;
-  padding: 18px 18px 14px;
+  padding: 16px 16px 13px;
   border-bottom: 1px solid rgba(240,120,32,0.12);
   position: sticky; top: 0; z-index: 50;
-  background: var(--bg);
+  background: rgba(12,12,12,0.96);
+  backdrop-filter: blur(8px);
 }
 .header-logo {
   width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
   box-shadow: 0 0 10px rgba(240,120,32,0.3);
+  object-fit: cover;
+}
+.header-logo-fallback {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: var(--naranja); display: none; align-items: center;
+  justify-content: center; font-size: 18px;
 }
 .header-text { flex: 1; min-width: 0; }
 .header-title {
   font-family: 'Cinzel', serif;
-  font-size: 11px; letter-spacing: 1.5px;
+  font-size: 10.5px; letter-spacing: 1.5px;
   color: var(--text); line-height: 1.2;
 }
-.header-sub { font-size: 11px; color: var(--naranja-light); margin-top: 1px; }
+.header-sub {
+  font-family: var(--font-ui);
+  font-size: 11px; color: var(--naranja-light);
+  margin-top: 1px; font-weight: 400;
+}
 
-/* ── SELECTOR DE MESES ── */
+/* ── SELECTOR ── */
 .selector-wrap {
-  padding: 14px 16px;
+  padding: 14px 14px 12px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
@@ -69,33 +82,32 @@ html, body {
 }
 .selector-row { display: flex; align-items: center; gap: 8px; }
 .selector-row select {
-  flex: 1;
+  flex: 1; min-width: 0;
   background: var(--surface2);
   color: var(--text);
   border: 1px solid var(--border2);
   border-radius: 8px;
-  padding: 9px 10px;
-  font-family: 'Raleway', sans-serif;
+  padding: 9px 28px 9px 10px;
+  font-family: var(--font-ui);
   font-size: 13px; font-weight: 500;
   appearance: none; -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23F07820' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
-  padding-right: 28px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .vs-badge {
   font-size: 10px; font-weight: 700; letter-spacing: 1px;
   color: var(--naranja); background: var(--naranja-glow);
   padding: 4px 8px; border-radius: 20px;
-  border: 1px solid rgba(240,120,32,0.2);
-  flex-shrink: 0;
+  border: 1px solid rgba(240,120,32,0.2); flex-shrink: 0;
 }
 .btn-comparar {
   width: 100%; margin-top: 10px;
   background: linear-gradient(135deg, var(--naranja-dark), var(--naranja));
   color: #fff; border: none; border-radius: 8px;
-  padding: 10px; font-family: 'Raleway', sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  padding: 11px; font-family: var(--font-ui);
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
   cursor: pointer; transition: opacity 0.2s;
 }
 .btn-comparar:active { opacity: 0.8; }
@@ -108,152 +120,184 @@ html, body {
   padding: 60px 20px; gap: 14px;
 }
 .spin {
-  width: 36px; height: 36px; border-radius: 50%;
+  width: 34px; height: 34px; border-radius: 50%;
   border: 2px solid var(--border2);
   border-top-color: var(--naranja);
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.75s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-txt { font-size: 12px; color: var(--text-dim); }
 
 /* ── ERROR ── */
 #error-box {
-  display: none; margin: 16px;
+  display: none; margin: 14px;
   background: var(--red-bg); border: 1px solid rgba(231,76,60,0.25);
-  border-radius: 10px; padding: 14px 16px;
-  font-size: 13px; color: var(--red);
+  border-radius: 10px; padding: 13px 15px;
+  font-size: 13px; color: var(--red); line-height: 1.5;
 }
 
 /* ── CONTENIDO ── */
-#contenido { display: none; padding: 14px 14px 32px; }
+#contenido { display: none; padding: 14px 14px 40px; }
 
-/* ── RESUMEN EJECUTIVO ── */
+/* ── RESUMEN ── */
 .resumen-titulo {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 8px; padding: 0 2px;
+  color: var(--text-muted); margin-bottom: 8px; padding: 0 1px;
 }
-.resumen-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+.resumen-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
 .rcard {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 13px;
 }
 .rcard-label {
-  font-size: 10px; color: var(--text-dim);
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 6px; display: flex; align-items: center; gap: 5px;
+  font-size: 9px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 6px;
 }
-.rcard-val { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.1; }
-.rcard-sub { font-size: 11px; font-weight: 600; margin-top: 4px; }
-.rcard-nota { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.rcard-val {
+  font-family: var(--font-num);
+  font-size: 22px; font-weight: 700;
+  color: var(--text); line-height: 1; letter-spacing: 0.3px;
+}
+.rcard-sub { font-size: 11px; font-weight: 600; margin-top: 5px; }
+.rcard-nota { font-size: 9px; color: var(--text-muted); margin-top: 3px; }
 .pos { color: var(--green); }
 .neg { color: var(--red); }
 
 .resultado-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 12px 14px;
   margin-bottom: 16px;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
 }
-.resultado-label { font-size: 11px; color: var(--text-dim); margin-bottom: 3px; }
-.resultado-val { font-size: 18px; font-weight: 700; }
+.resultado-left { min-width: 0; }
+.resultado-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.resultado-val {
+  font-family: var(--font-num);
+  font-size: 24px; font-weight: 700; letter-spacing: 0.3px;
+}
 .resultado-badge {
-  font-size: 11px; font-weight: 700; padding: 4px 10px;
-  border-radius: 20px; flex-shrink: 0;
+  font-family: var(--font-num);
+  font-size: 13px; font-weight: 700; padding: 5px 11px;
+  border-radius: 20px; flex-shrink: 0; letter-spacing: 0.3px;
 }
 .badge-pos { background: var(--green-bg); color: var(--green); }
 .badge-neg { background: var(--red-bg); color: var(--red); }
+.badge-neu { background: var(--surface2); color: var(--text-dim); }
 
 /* ── SECCIÓN LABEL ── */
 .seccion-label {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-muted); margin: 16px 0 8px; padding: 0 2px;
+  color: var(--text-muted); margin: 16px 0 8px; padding: 0 1px;
 }
 
 /* ── BLOQUES ── */
 .bloque {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px; margin-bottom: 8px;
-  overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 8px; overflow: hidden;
 }
 .bloque-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 13px 14px; cursor: pointer;
-  transition: background 0.2s;
+  padding: 12px 13px; cursor: pointer; transition: background 0.15s;
   -webkit-user-select: none; user-select: none;
 }
 .bloque-header:active { background: var(--surface2); }
-.bloque-izq { display: flex; align-items: center; gap: 10px; }
+.bloque-izq { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .bloque-icon {
   width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(240,120,32,0.1);
-  border: 1px solid rgba(240,120,32,0.15);
+  background: rgba(240,120,32,0.1); border: 1px solid rgba(240,120,32,0.15);
   display: flex; align-items: center; justify-content: center;
-  font-size: 15px; flex-shrink: 0;
+  font-size: 14px; flex-shrink: 0;
 }
-.bloque-nombre { font-size: 13px; font-weight: 600; color: var(--text); }
-.bloque-subtotales { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
-.bloque-der { display: flex; align-items: center; gap: 6px; }
+.bloque-info { min-width: 0; }
+.bloque-nombre {
+  font-size: 13px; font-weight: 600; color: var(--text);
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.bloque-subtotales {
+  font-family: var(--font-num);
+  font-size: 11px; color: var(--text-dim); margin-top: 2px; letter-spacing: 0.2px;
+}
+.bloque-der { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .bloque-pct {
-  font-size: 11px; font-weight: 700; padding: 3px 8px;
-  border-radius: 20px;
+  font-family: var(--font-num);
+  font-size: 12px; font-weight: 700; padding: 3px 8px;
+  border-radius: 20px; letter-spacing: 0.3px;
 }
 .pct-pos { background: var(--green-bg); color: var(--green); }
 .pct-neg { background: var(--red-bg); color: var(--red); }
 .pct-neu { background: var(--surface3); color: var(--text-dim); }
 .chevron {
-  font-size: 16px; color: var(--naranja);
-  transition: transform 0.25s; line-height: 1;
+  color: var(--naranja); transition: transform 0.25s;
+  font-size: 18px; line-height: 1; flex-shrink: 0;
 }
 .chevron.open { transform: rotate(180deg); }
 
-/* ── INFO BADGE para subsidios ── */
 .info-badge {
-  font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  font-size: 8px; letter-spacing: 1px; text-transform: uppercase;
   color: var(--naranja); background: var(--naranja-glow);
-  padding: 2px 7px; border-radius: 20px;
+  padding: 2px 6px; border-radius: 20px;
   border: 1px solid rgba(240,120,32,0.2);
-  margin-left: 6px;
 }
 
 /* ── TABLA DETALLE ── */
 .bloque-body { border-top: 1px solid var(--border); display: none; }
 .bloque-body.open { display: block; }
+
+/* Headers de columna */
 .col-headers {
-  display: grid; grid-template-columns: 1fr 80px 80px 52px;
-  padding: 6px 14px 5px;
+  display: flex; padding: 6px 13px 5px;
   background: var(--surface2);
   border-bottom: 1px solid var(--border);
+  gap: 4px;
 }
 .col-h {
-  font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--text-muted); text-align: right;
+  font-size: 9px; letter-spacing: 0.8px; text-transform: uppercase;
+  color: var(--text-muted);
 }
-.col-h:first-child { text-align: left; }
+.col-h-concepto { flex: 1; min-width: 0; }
+.col-h-num { width: 64px; text-align: right; flex-shrink: 0; }
+.col-h-var { width: 42px; text-align: right; flex-shrink: 0; }
+
+/* Fila de item */
 .item-row {
-  display: grid; grid-template-columns: 1fr 80px 80px 52px;
-  padding: 8px 14px;
+  display: flex; align-items: flex-start;
+  padding: 8px 13px; gap: 4px;
   border-bottom: 1px solid var(--border);
-  align-items: center;
 }
 .item-row:last-child { border-bottom: none; }
-.item-concepto { font-size: 11px; color: var(--text-dim); padding-right: 6px; line-height: 1.3; }
-.item-monto { font-size: 11px; color: var(--text); text-align: right; }
+.item-concepto { flex: 1; font-size: 11px; color: var(--text-dim); line-height: 1.35; min-width: 0; padding-right: 4px; }
+.item-monto {
+  font-family: var(--font-num);
+  font-size: 12px; color: var(--text);
+  width: 64px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
+}
 .item-monto.ausente { color: var(--text-muted); }
-.item-var { font-size: 10px; font-weight: 600; text-align: right; }
+.item-var {
+  font-family: var(--font-num);
+  font-size: 11px; font-weight: 600;
+  width: 42px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
+}
+
+/* Subtotal */
 .subtotal-row {
-  display: grid; grid-template-columns: 1fr 80px 80px 52px;
-  padding: 9px 14px;
+  display: flex; align-items: center;
+  padding: 9px 13px; gap: 4px;
   background: var(--surface2);
   border-top: 1px solid var(--border2);
 }
-.subtotal-label { font-size: 11px; font-weight: 700; color: var(--text-dim); }
-.subtotal-val { font-size: 12px; font-weight: 700; color: var(--text); text-align: right; }
-.subtotal-var { font-size: 11px; font-weight: 700; text-align: right; }
+.subtotal-label { flex: 1; font-size: 11px; font-weight: 700; color: var(--text-dim); }
+.subtotal-val {
+  font-family: var(--font-num);
+  font-size: 13px; font-weight: 700; color: var(--text);
+  width: 64px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
+}
+.subtotal-var {
+  font-family: var(--font-num);
+  font-size: 12px; font-weight: 700;
+  width: 42px; text-align: right; flex-shrink: 0;
+}
 
-/* ── EMPTY STATE ── */
 #empty {
   display: none; padding: 50px 20px;
   text-align: center; color: var(--text-muted); font-size: 13px;
@@ -263,8 +307,9 @@ html, body {
 <body>
 
 <div class="header">
-  <img class="header-logo" src="https://caacati.github.io/pagos-municipales/IMG-20260325-WA0013.png"
-       alt="Logo" onerror="this.style.background='#F07820'">
+  <img class="header-logo" id="headerLogo" src="./logo.png" alt="Logo Municipio"
+       onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'">
+  <div class="header-logo-fallback" id="logoFallback">🏛️</div>
   <div class="header-text">
     <div class="header-title">MUNICIPALIDAD DE CAÁ CATÍ</div>
     <div class="header-sub">Comparativo Financiero</div>
@@ -298,39 +343,42 @@ const MESES_LABEL = {
   "05":"Mayo","06":"Junio","07":"Julio","08":"Agosto",
   "09":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"
 };
-
-// Categorías que son solo informativas (no suman al total de ingresos)
-const CATS_INFORMATIVAS = ["Subsidios"];
+const CATS_INFORMATIVAS = ["Subsidios", "Subsidio"];
 
 function labelMes(m) {
+  if (!m) return m;
   const [y, mo] = m.split("-");
   return (MESES_LABEL[mo] || mo) + " " + y;
 }
-
 function fmt(n) {
-  if (!n && n !== 0) return "—";
+  if (n === null || n === undefined) return "—";
   return "$ " + Math.round(n).toLocaleString("es-AR");
 }
 function fmtM(n) {
-  if (!n && n !== 0) return "—";
+  if (n === null || n === undefined) return "—";
   const abs = Math.abs(n);
   if (abs >= 1e9) return "$ " + (n/1e9).toFixed(1).replace(".",",") + "B";
   if (abs >= 1e6) return "$ " + (n/1e6).toFixed(1).replace(".",",") + "M";
+  if (abs >= 1e3) return "$ " + (n/1e3).toFixed(0) + "K";
   return fmt(n);
-}
-function pctHtml(a, b, clsBase) {
-  if (!a) return `<span class="${clsBase} pct-neu">—</span>`;
-  const p = (b - a) / a * 100;
-  const s = (p >= 0 ? "+" : "") + Math.round(p) + "%";
-  const cls = p > 0 ? "pct-pos" : p < 0 ? "pct-neg" : "pct-neu";
-  return `<span class="${clsBase} ${cls}">${s}</span>`;
 }
 function pctVal(a, b) {
   if (!a) return null;
   return (b - a) / a * 100;
 }
+function pctStr(p, invertir) {
+  if (p === null) return { s: "—", cls: "pct-neu" };
+  const s = (p >= 0 ? "+" : "") + Math.round(p) + "%";
+  const positivo = invertir ? p <= 0 : p >= 0;
+  const cls = p === 0 ? "pct-neu" : positivo ? "pct-pos" : "pct-neg";
+  return { s, cls };
+}
+function colorCls(p, invertir) {
+  if (p === null) return "";
+  const positivo = invertir ? p <= 0 : p >= 0;
+  return p === 0 ? "" : positivo ? "pos" : "neg";
+}
 
-// ── Carga lista de meses disponibles ──
 async function cargarMeses() {
   try {
     const r = await fetch(SCRIPT_URL + "?accion=meses");
@@ -347,25 +395,21 @@ async function cargarMeses() {
       selB.innerHTML += `<option value="${m}">${lbl}</option>`;
     });
 
-    // Por defecto: selA = anteúltimo, selB = último
     if (d.meses.length >= 2) {
       selA.value = d.meses[d.meses.length - 2];
       selB.value = d.meses[d.meses.length - 1];
     } else if (d.meses.length === 1) {
-      selA.value = d.meses[0];
-      selB.value = d.meses[0];
+      selA.value = selB.value = d.meses[0];
     }
   } catch (err) {
     mostrarError("No se pudo cargar la lista de meses: " + err.message);
   }
 }
 
-// ── Carga y renderiza el comparativo ──
 async function cargarDatos() {
   const mesA = document.getElementById("selA").value;
   const mesB = document.getElementById("selB").value;
   const btn  = document.getElementById("btnComparar");
-
   if (!mesA || !mesB) return;
 
   setEstado("loading");
@@ -386,20 +430,46 @@ async function cargarDatos() {
 
 function setEstado(estado) {
   ["loading","error-box","empty","contenido"].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.display = "none";
+    document.getElementById(id).style.display = "none";
   });
-  const target = document.getElementById(estado);
-  if (target) target.style.display = estado === "loading" ? "flex" : "block";
+  const el = document.getElementById(estado);
+  if (el) el.style.display = estado === "loading" ? "flex" : "block";
 }
 
 function mostrarError(msg) {
-  const el = document.getElementById("error-box");
-  el.textContent = "⚠ " + msg;
+  document.getElementById("error-box").textContent = "⚠ " + msg;
   setEstado("error-box");
 }
 
-// ── Render principal ──
+function sumarExcluyendo(obj, excluir) {
+  return Object.entries(obj)
+    .filter(([k]) => !excluir.includes(k))
+    .flatMap(([,v]) => v)
+    .reduce((s,i) => s + i.monto, 0);
+}
+function sumarTodo(obj) {
+  return Object.values(obj).flat().reduce((s,i) => s + i.monto, 0);
+}
+function unionKeys(a, b) {
+  return [...new Set([...Object.keys(a), ...Object.keys(b)])];
+}
+function unionConceptos(a, b) {
+  return [...new Set([...a.map(i=>i.concepto), ...b.map(i=>i.concepto)])];
+}
+function getIconoIng(cat) {
+  const c = cat.toLowerCase();
+  if (c.includes("cuenta")) return "🏛️";
+  if (c.includes("subsidio")) return "📨";
+  if (c.includes("cobran")) return "💰";
+  return "📥";
+}
+function getIconoEgr(cat) {
+  const c = cat.toLowerCase();
+  if (c.includes("sueldo")) return "👥";
+  if (c.includes("gasto")) return "📋";
+  return "📤";
+}
+
 function renderizar(data, mesA, mesB) {
   const lA = labelMes(mesA);
   const lB = labelMes(mesB);
@@ -409,7 +479,6 @@ function renderizar(data, mesA, mesB) {
   const egrA = data.egresos_a  || {};
   const egrB = data.egresos_b  || {};
 
-  // Totales reales (excluye categorías informativas)
   const totIngA = sumarExcluyendo(ingA, CATS_INFORMATIVAS);
   const totIngB = sumarExcluyendo(ingB, CATS_INFORMATIVAS);
   const totEgrA = sumarTodo(egrA);
@@ -421,82 +490,69 @@ function renderizar(data, mesA, mesB) {
   const pEgr = pctVal(totEgrA, totEgrB);
   const pSal = pctVal(saldoA,  saldoB);
 
-  let html = "";
-
-  // ── Resumen ejecutivo ──
-  html += `<div class="resumen-titulo">Resumen ejecutivo</div>`;
-  html += `<div class="resumen-cards">`;
-  html += tarjetaResumen("📥", "Ingresos", lB, fmtM(totIngB), pIng, lA, "solo Cuenta 4 + Cobranzas");
-  html += tarjetaResumen("📤", "Egresos",  lB, fmtM(totEgrB), pEgr, lA, "sueldos + gastos corrientes", true);
-  html += `</div>`;
-
-  // Saldo
-  const sCls = saldoB >= 0 ? "pos" : "neg";
+  const piS = pctStr(pIng, false);
+  const peS = pctStr(pEgr, true);
+  const psS = pctStr(pSal, false);
+  const saldoCls = saldoB >= 0 ? "pos" : "neg";
   const sBadgeCls = saldoB >= 0 ? "badge-pos" : "badge-neg";
-  const sVarS = pSal !== null ? ((pSal>=0?"+":"")+Math.round(pSal)+"%") : "—";
-  html += `<div class="resultado-card">
-    <div>
-      <div class="resultado-label">Resultado del mes</div>
-      <div class="resultado-val ${sCls}">${fmtM(saldoB)}</div>
+
+  let html = `<div class="resumen-titulo">Resumen ejecutivo</div>`;
+  html += `<div class="resumen-cards">
+    <div class="rcard">
+      <div class="rcard-label">📥 Ingresos</div>
+      <div class="rcard-val">${fmtM(totIngB)}</div>
+      <div class="rcard-sub ${piS.cls.replace('pct-','')}">${piS.s} vs ${lA}</div>
+      <div class="rcard-nota">Cuenta 4 + Cobranzas</div>
     </div>
-    <span class="resultado-badge ${sBadgeCls}">${sVarS} vs ${lA}</span>
+    <div class="rcard">
+      <div class="rcard-label">📤 Egresos</div>
+      <div class="rcard-val">${fmtM(totEgrB)}</div>
+      <div class="rcard-sub ${peS.cls.replace('pct-','')}">${peS.s} vs ${lA}</div>
+      <div class="rcard-nota">Sueldos + Gastos</div>
+    </div>
   </div>`;
 
-  // ── Ingresos ──
+  html += `<div class="resultado-card">
+    <div class="resultado-left">
+      <div class="resultado-label">Resultado del mes</div>
+      <div class="resultado-val ${saldoCls}">${fmtM(saldoB)}</div>
+    </div>
+    <span class="resultado-badge ${sBadgeCls}">${psS.s} vs ${lA}</span>
+  </div>`;
+
   html += `<div class="seccion-label">Ingresos</div>`;
-  const catsIng = unionKeys(ingA, ingB);
-  catsIng.forEach((cat, i) => {
+  unionKeys(ingA, ingB).forEach((cat, i) => {
     const esInfo = CATS_INFORMATIVAS.includes(cat);
-    html += buildBloque(cat, ingA[cat]||[], ingB[cat]||[], lA, lB,
-      i === 0, getIconoIng(cat), esInfo);
+    html += buildBloque(cat, ingA[cat]||[], ingB[cat]||[], lA, lB, i===0, getIconoIng(cat), esInfo);
   });
 
-  // ── Egresos ──
   html += `<div class="seccion-label">Egresos</div>`;
-  const catsEgr = unionKeys(egrA, egrB);
-  catsEgr.forEach((cat, i) => {
-    html += buildBloque(cat, egrA[cat]||[], egrB[cat]||[], lA, lB,
-      i === 0, getIconoEgr(cat), false);
+  unionKeys(egrA, egrB).forEach((cat, i) => {
+    html += buildBloque(cat, egrA[cat]||[], egrB[cat]||[], lA, lB, i===0, getIconoEgr(cat), false);
   });
 
   document.getElementById("contenido").innerHTML = html;
 }
 
-function tarjetaResumen(ico, titulo, mes, val, pct, mesAnterior, nota, invertirColor) {
-  const p = pct !== null ? Math.round(pct) : null;
-  const positivo = invertirColor ? (p !== null && p <= 0) : (p !== null && p >= 0);
-  const cls = p === null ? "" : positivo ? "pos" : "neg";
-  const s = p === null ? "—" : (p >= 0 ? "+" : "") + p + "%";
-  return `<div class="rcard">
-    <div class="rcard-label">${ico} ${titulo}</div>
-    <div class="rcard-val">${val}</div>
-    <div class="rcard-sub ${cls}">${s} vs ${mesAnterior}</div>
-    <div class="rcard-nota">${nota}</div>
-  </div>`;
-}
-
 function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
-  const id = "blq_" + cat.replace(/\s+/g,"_").replace(/[^a-zA-Z0-9_]/g,"");
-  const totA = itemsA.reduce((s,i) => s + i.monto, 0);
-  const totB = itemsB.reduce((s,i) => s + i.monto, 0);
+  const id = "b_" + cat.replace(/[^a-zA-Z0-9]/g,"_");
+  const totA = itemsA.reduce((s,i) => s+i.monto, 0);
+  const totB = itemsB.reduce((s,i) => s+i.monto, 0);
   const pct  = pctVal(totA||null, totB);
-  const pctS = pct !== null ? ((pct>=0?"+":"")+Math.round(pct)+"%") : "—";
-  const pctCls = pct === null ? "pct-neu" : pct > 0 ? "pct-pos" : "pct-neg";
+  const { s: pctS, cls: pctCls } = pctStr(pct, false);
 
   const allConceptos = unionConceptos(itemsA, itemsB);
-
   let rows = "";
   allConceptos.forEach(c => {
-    const a = itemsA.find(i => i.concepto === c)?.monto ?? null;
-    const b = itemsB.find(i => i.concepto === c)?.monto ?? null;
+    const a = itemsA.find(i=>i.concepto===c)?.monto ?? null;
+    const b = itemsB.find(i=>i.concepto===c)?.monto ?? null;
     const p = pctVal(a, b ?? 0);
-    const pS = p !== null ? ((p>=0?"+":"")+Math.round(p)+"%") : "—";
-    const pC = p === null ? "pct-neu" : p > 0 ? "pos" : "neg";
+    const { s: ps, cls: pc } = pctStr(p, false);
     rows += `<div class="item-row">
       <span class="item-concepto">${c}</span>
-      <span class="item-monto${a===null?' ausente':''}">${a !== null ? fmtM(a) : "—"}</span>
-      <span class="item-monto${b===null?' ausente':''}">${b !== null ? fmtM(b) : "—"}</span>
-      <span class="item-var ${pC}">${pS}</span>
+      <span class="item-monto${a===null?' ausente':''}">${a!==null?fmtM(a):"—"}</span>
+      <span class="item-monto${b===null?' ausente':''}">${b!==null?fmtM(b):"—"}</span>
+      <span class="item-var ${pc.replace('pct-','')}">${ps}</span>
     </div>`;
   });
 
@@ -506,8 +562,8 @@ function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
     <div class="bloque-header" onclick="toggleBloque('${id}')">
       <div class="bloque-izq">
         <div class="bloque-icon">${icono}</div>
-        <div>
-          <div class="bloque-nombre">${cat}${infoBadge}</div>
+        <div class="bloque-info">
+          <div class="bloque-nombre">${cat} ${infoBadge}</div>
           <div class="bloque-subtotales">${fmtM(totA)} → ${fmtM(totB)}</div>
         </div>
       </div>
@@ -518,17 +574,17 @@ function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
     </div>
     <div class="bloque-body${abierto?' open':''}" id="${id}">
       <div class="col-headers">
-        <span class="col-h">Concepto</span>
-        <span class="col-h">${lA}</span>
-        <span class="col-h">${lB}</span>
-        <span class="col-h">Var.</span>
+        <span class="col-h col-h-concepto">Concepto</span>
+        <span class="col-h col-h-num">${lA}</span>
+        <span class="col-h col-h-num">${lB}</span>
+        <span class="col-h col-h-var">Var.</span>
       </div>
       ${rows}
       <div class="subtotal-row">
-        <span class="subtotal-label">Total ${cat}</span>
+        <span class="subtotal-label">Total</span>
         <span class="subtotal-val">${fmtM(totA)}</span>
         <span class="subtotal-val">${fmtM(totB)}</span>
-        ${pctHtml(totA||null, totB, "subtotal-var")}
+        <span class="subtotal-var ${pctCls}">${pctS}</span>
       </div>
     </div>
   </div>`;
@@ -542,35 +598,6 @@ function toggleBloque(id) {
   chev.classList.toggle("open", !open);
 }
 
-// ── Helpers ──
-function sumarTodo(obj) {
-  return Object.values(obj).flat().reduce((s,i) => s + i.monto, 0);
-}
-function sumarExcluyendo(obj, excluir) {
-  return Object.entries(obj)
-    .filter(([k]) => !excluir.includes(k))
-    .flatMap(([,v]) => v)
-    .reduce((s,i) => s + i.monto, 0);
-}
-function unionKeys(a, b) {
-  return [...new Set([...Object.keys(a), ...Object.keys(b)])];
-}
-function unionConceptos(a, b) {
-  return [...new Set([...a.map(i=>i.concepto), ...b.map(i=>i.concepto)])];
-}
-function getIconoIng(cat) {
-  if (cat === "Cuenta 4")   return "🏛️";
-  if (cat === "Subsidios")  return "📨";
-  if (cat === "Cobranzas")  return "💰";
-  return "📥";
-}
-function getIconoEgr(cat) {
-  if (cat === "Sueldos")           return "👥";
-  if (cat === "Gastos Corrientes") return "📋";
-  return "📤";
-}
-
-// ── Init ──
 cargarMeses();
 </script>
 </body>
