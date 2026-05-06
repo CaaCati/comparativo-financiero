@@ -463,6 +463,7 @@ function getIconoIng(cat) {
   if (c.includes("cobran")) return "💰";
   return "📥";
 }
+// Nota: "Cuenta 4 y 6 (NETO)" ya matchea con c.includes("cuenta") — no requiere cambio adicional.
 function getIconoEgr(cat) {
   const c = cat.toLowerCase();
   if (c.includes("sueldo")) return "👥";
@@ -498,7 +499,7 @@ function renderizar(data, mesA, mesB) {
       <div class="rcard-label">📥 Ingresos</div>
       <div class="rcard-val">${fmtM(totIngB)}</div>
       <div class="rcard-sub ${piS.cls.replace('pct-','')}">${piS.s} vs ${lA}</div>
-      <div class="rcard-nota">Cuenta 4 + Cobranzas</div>
+      <div class="rcard-nota">Cuenta 4 y 6 + Cobranzas</div>
     </div>
     <div class="rcard">
       <div class="rcard-label">📤 Egresos</div>
