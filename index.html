@@ -529,7 +529,7 @@ function buildBloque(cat, itemsA, itemsB, lA, lB, abierto, icono, esInfo) {
   const pct  = pctVal(totA||null, totB);
   const { s: pctS, cls: pctCls } = pctStr(pct, false);
 
-  const allConceptos = unionConceptos(itemsA, itemsB);
+  const allConceptos = unionConceptos(itemsA, itemsB).sort((a, b) => a.localeCompare(b, 'es'));
   let rows = "";
   allConceptos.forEach(c => {
     const a = itemsA.find(i=>i.concepto===c)?.monto ?? null;
