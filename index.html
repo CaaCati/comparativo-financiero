@@ -256,7 +256,7 @@ html, body {
   color: var(--text-muted);
 }
 .col-h-concepto { flex: 1; min-width: 0; }
-.col-h-num { width: 64px; text-align: right; flex-shrink: 0; }
+.col-h-num { width: 130px; text-align: right; flex-shrink: 0; }
 .col-h-var { width: 42px; text-align: right; flex-shrink: 0; }
 
 /* Fila de item */
@@ -270,7 +270,7 @@ html, body {
 .item-monto {
   font-family: var(--font-num);
   font-size: 12px; color: var(--text);
-  width: 64px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
+  width: 130px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
 }
 .item-monto.ausente { color: var(--text-muted); }
 .item-var {
@@ -290,7 +290,7 @@ html, body {
 .subtotal-val {
   font-family: var(--font-num);
   font-size: 13px; font-weight: 700; color: var(--text);
-  width: 64px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
+  width: 130px; text-align: right; flex-shrink: 0; letter-spacing: 0.2px;
 }
 .subtotal-var {
   font-family: var(--font-num);
@@ -539,18 +539,6 @@ function renderizarCoparticipacion(d){
     </div>
 
   </div>
-
-  <div class="resultado-card">
-    <div class="resultado-left">
-      <div class="resultado-label">
-        Variación
-      </div>
-
-      <div class="resultado-val">
-        ${(variacion>=0?'+':'') + variacion.toFixed(1)}%
-      </div>
-    </div>
-  </div>
   `;
 
   html += `
@@ -575,6 +563,9 @@ function renderizarCoparticipacion(d){
         <span class="col-h col-h-num">
           ${mesB}
         </span>
+        <span class="col-h col-h-var">
+          Var.
+        </span>
       </div>
   `;
 
@@ -586,6 +577,29 @@ function renderizarCoparticipacion(d){
 
   conceptos.forEach(c => {
 
+    const a = d.conceptosA[c] || 0;
+    const b = d.conceptosB[c] || 0;
+
+    let variacion = null;
+
+    if(a > 0){
+      variacion = ((b-a)/a)*100;
+    }
+
+    const color =
+      variacion === null
+        ? ""
+        : variacion >= 0
+          ? "pos"
+          : "neg";
+
+    const textoVar =
+      variacion === null
+        ? "—"
+        : (variacion >= 0 ? "+" : "")
+          + variacion.toFixed(1)
+          + "%";
+
     html += `
       <div class="item-row">
 
@@ -594,16 +608,47 @@ function renderizarCoparticipacion(d){
         </span>
 
         <span class="item-monto">
-          ${fmtCompleto(d.conceptosA[c] || 0)}
+          ${fmtCompleto(a)}
         </span>
 
         <span class="item-monto">
-          ${fmtCompleto(d.conceptosB[c] || 0)}
+          ${fmtCompleto(b)}
+        </span>
+
+        <span class="item-var ${color}">
+          ${textoVar}
         </span>
 
       </div>
     `;
   });
+
+  const totalVar =
+    totalA > 0
+      ? ((totalB-totalA)/totalA)*100
+      : 0;
+
+  html += `
+    <div class="subtotal-row">
+
+      <span class="subtotal-label">
+        Total
+      </span>
+
+      <span class="subtotal-val">
+        ${fmtCompleto(totalA)}
+      </span>
+
+      <span class="subtotal-val">
+        ${fmtCompleto(totalB)}
+      </span>
+
+      <span class="subtotal-var ${totalVar >= 0 ? 'pos' : 'neg'}">
+        ${(totalVar >= 0 ? '+' : '') + totalVar.toFixed(1)}%
+      </span>
+
+    </div>
+  `;
 
   html += `
       </div>
