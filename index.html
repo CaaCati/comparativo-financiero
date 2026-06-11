@@ -317,12 +317,56 @@ html, body {
 </div>
 
 <div class="selector-wrap">
+  <div class="selector-label">Modo de comparación</div>
+  <select id="modoComparacion" style="width:100%;margin-bottom:10px;background:var(--surface2);color:#fff;border:1px solid var(--border2);border-radius:8px;padding:9px 10px;">
+    <option value="financiero">Comparativo Financiero</option>
+    <option value="coparticipacion">Coparticipación por Fecha</option>
+  </select>
+
   <div class="selector-label">Seleccioná los meses a comparar</div>
   <div class="selector-row">
     <select id="selA"></select>
     <div class="vs-badge">VS</div>
     <select id="selB"></select>
   </div>
+  
+  <div id="grupoDiaLimite" style="display:none;margin-top:10px;">
+    <div class="selector-label">Día límite</div>
+    <select id="diaLimite" style="width:100%;background:var(--surface2);color:#fff;border:1px solid var(--border2);border-radius:8px;padding:9px 10px;">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
+      <option value="21">21</option>
+      <option value="22">22</option>
+      <option value="23">23</option>
+      <option value="24">24</option>
+      <option value="25">25</option>
+      <option value="26">26</option>
+      <option value="27">27</option>
+      <option value="28">28</option>
+      <option value="29">29</option>
+      <option value="30">30</option>
+      <option value="31">31</option>
+    </select>
+  </div>
+
   <button class="btn-comparar" id="btnComparar" onclick="cargarDatos()">VER COMPARATIVO</button>
 </div>
 
@@ -406,24 +450,217 @@ async function cargarMeses() {
   }
 }
 
+function fmtCompleto(n){
+  return "$ " +
+    Math.round(n)
+    .toLocaleString("es-AR");
+}
+
+async function cargarCoparticipacion(){
+
+  const mesA =
+    document.getElementById("selA").value;
+
+  const mesB =
+    document.getElementById("selB").value;
+
+  const diaLimite =
+    document.getElementById("diaLimite").value;
+
+  setEstado("loading");
+
+  try {
+
+    const r = await fetch(
+      `${SCRIPT_URL}?accion=coparticipacionFecha&mesA=${mesA}&mesB=${mesB}&diaLimite=${diaLimite}`
+    );
+
+    const d = await r.json();
+
+    if(d.error)
+      throw new Error(d.error);
+
+    renderizarCoparticipacion(d);
+
+    setEstado("contenido");
+
+  } catch(err){
+
+    mostrarError(err.message);
+  }
+}
+
+function renderizarCoparticipacion(d){
+
+  const mesA =
+    labelMes(d.mesA);
+
+  const mesB =
+    labelMes(d.mesB);
+
+  const totalA =
+    d.totalA || 0;
+
+  const totalB =
+    d.totalB || 0;
+
+  const variacion =
+    totalA
+      ? ((totalB-totalA)/totalA)*100
+      : 0;
+
+  let html = '';
+
+  html += `
+  <div class="resumen-titulo">
+    Comparativo de Coparticipación
+  </div>
+
+  <div class="resumen-cards">
+
+    <div class="rcard">
+      <div class="rcard-label">${mesA}</div>
+      <div class="rcard-val" style="font-size:18px;">
+        ${fmtCompleto(totalA)}
+      </div>
+      <div class="rcard-nota">
+        ${d.diasHabilesA} días hábiles
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-label">${mesB}</div>
+      <div class="rcard-val" style="font-size:18px;">
+        ${fmtCompleto(totalB)}
+      </div>
+      <div class="rcard-nota">
+        ${d.diasHabilesB} días hábiles
+      </div>
+    </div>
+
+  </div>
+
+  <div class="resultado-card">
+    <div class="resultado-left">
+      <div class="resultado-label">
+        Variación
+      </div>
+
+      <div class="resultado-val">
+        ${(variacion>=0?'+':'') + variacion.toFixed(1)}%
+      </div>
+    </div>
+  </div>
+  `;
+
+  html += `
+  <div class="bloque">
+    <div class="bloque-header">
+      <div class="bloque-info">
+        <div class="bloque-nombre">
+          Detalle por Concepto
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque-body open">
+
+      <div class="col-headers">
+        <span class="col-h col-h-concepto">
+          Concepto
+        </span>
+        <span class="col-h col-h-num">
+          ${mesA}
+        </span>
+        <span class="col-h col-h-num">
+          ${mesB}
+        </span>
+      </div>
+  `;
+
+  const conceptos =
+    [...new Set([
+      ...Object.keys(d.conceptosA),
+      ...Object.keys(d.conceptosB)
+    ])];
+
+  conceptos.forEach(c => {
+
+    html += `
+      <div class="item-row">
+
+        <span class="item-concepto">
+          ${c}
+        </span>
+
+        <span class="item-monto">
+          ${fmtCompleto(d.conceptosA[c] || 0)}
+        </span>
+
+        <span class="item-monto">
+          ${fmtCompleto(d.conceptosB[c] || 0)}
+        </span>
+
+      </div>
+    `;
+  });
+
+  html += `
+      </div>
+    </div>
+  `;
+
+  document
+    .getElementById("contenido")
+    .innerHTML = html;
+}
+
 async function cargarDatos() {
-  const mesA = document.getElementById("selA").value;
-  const mesB = document.getElementById("selB").value;
-  const btn  = document.getElementById("btnComparar");
-  if (!mesA || !mesB) return;
+
+  const modo =
+    document.getElementById(
+      "modoComparacion"
+    ).value;
+
+  if (modo === "coparticipacion") {
+    return cargarCoparticipacion();
+  }
+
+  const mesA =
+    document.getElementById("selA").value;
+
+  const mesB =
+    document.getElementById("selB").value;
+
+  const btn =
+    document.getElementById(
+      "btnComparar"
+    );
 
   setEstado("loading");
   btn.disabled = true;
 
   try {
-    const r = await fetch(`${SCRIPT_URL}?accion=datos&mesA=${mesA}&mesB=${mesB}`);
+
+    const r = await fetch(
+      `${SCRIPT_URL}?accion=datos&mesA=${mesA}&mesB=${mesB}`
+    );
+
     const d = await r.json();
-    if (d.error) throw new Error(d.error);
+
+    if (d.error)
+      throw new Error(d.error);
+
     renderizar(d, mesA, mesB);
+
     setEstado("contenido");
+
   } catch (err) {
-    mostrarError("Error al cargar datos: " + err.message);
+
+    mostrarError(err.message);
+
   } finally {
+
     btn.disabled = false;
   }
 }
@@ -586,6 +823,19 @@ function toggleBloque(id) {
   body.classList.toggle("open", !open);
   chev.classList.toggle("open", !open);
 }
+
+document
+.getElementById("modoComparacion")
+.addEventListener("change", function(){
+
+  const mostrar =
+    this.value === "coparticipacion";
+
+  document
+    .getElementById("grupoDiaLimite")
+    .style.display =
+      mostrar ? "block" : "none";
+});
 
 cargarMeses();
 </script>
