@@ -515,8 +515,18 @@ async function actualizarDiaLimiteAutomatico() {
 
     if(d.error) return;
 
-    document.getElementById("diaLimite").value =
-      d.diaMaximo;
+    const select =
+      document.getElementById("diaLimite");
+
+    select.innerHTML = "";
+
+    for(let i = 1; i <= d.diaMaximo; i++){
+
+      select.innerHTML +=
+        `<option value="${i}">${i}</option>`;
+    }
+
+    select.value = d.diaMaximo;
 
   } catch(err){
 
