@@ -503,40 +503,24 @@ async function actualizarDiaLimiteAutomatico() {
   const mesB =
     document.getElementById("selB").value;
 
+  if(!mesA || !mesB) return;
+
   try {
 
     const r = await fetch(
-      `${SCRIPT_URL}?accion=limiteAutomatico&mesA=${mesA}&mesB=${mesB}`
+      `${SCRIPT_URL}?accion=limiteCoparticipacion&mesA=${mesA}&mesB=${mesB}`
     );
 
     const d = await r.json();
 
     if(d.error) return;
 
-    limiteAutomatico =
-      d.diaLimite || 31;
-
-    const select =
-      document.getElementById("diaLimite");
-
-    Array.from(select.options)
-      .forEach(opt => {
-
-        opt.disabled =
-          Number(opt.value) > limiteAutomatico;
-      });
-
-    if (
-      Number(select.value) >
-      limiteAutomatico
-    ){
-      select.value =
-        limiteAutomatico;
-    }
+    document.getElementById("diaLimite").value =
+      d.diaMaximo;
 
   } catch(err){
 
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -973,14 +957,18 @@ document
 });
 
 document
-.getElementById("selA")
-.addEventListener("change",
-actualizarDiaLimiteAutomatico);
+  .getElementById("selA")
+  .addEventListener(
+    "change",
+    actualizarDiaLimiteAutomatico
+  );
 
 document
-.getElementById("selB")
-.addEventListener("change",
-actualizarDiaLimiteAutomatico);
+  .getElementById("selB")
+  .addEventListener(
+    "change",
+    actualizarDiaLimiteAutomatico
+  );
 
 cargarMeses().then(() => {
   actualizarDiaLimiteAutomatico();
