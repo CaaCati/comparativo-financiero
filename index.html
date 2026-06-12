@@ -432,6 +432,7 @@ const MESES_LABEL = {
   "09":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"
 };
 const CATS_INFORMATIVAS = ["Subsidios", "Subsidio"];
+let limiteAutomatico = 31;
 
 function labelMes(m) {
   if (!m) return m;
@@ -491,6 +492,51 @@ async function cargarMeses() {
     }
   } catch (err) {
     mostrarError("No se pudo cargar la lista de meses: " + err.message);
+  }
+}
+
+async function actualizarDiaLimiteAutomatico() {
+
+  const mesA =
+    document.getElementById("selA").value;
+
+  const mesB =
+    document.getElementById("selB").value;
+
+  try {
+
+    const r = await fetch(
+      `${SCRIPT_URL}?accion=limiteAutomatico&mesA=${mesA}&mesB=${mesB}`
+    );
+
+    const d = await r.json();
+
+    if(d.error) return;
+
+    limiteAutomatico =
+      d.diaLimite || 31;
+
+    const select =
+      document.getElementById("diaLimite");
+
+    Array.from(select.options)
+      .forEach(opt => {
+
+        opt.disabled =
+          Number(opt.value) > limiteAutomatico;
+      });
+
+    if (
+      Number(select.value) >
+      limiteAutomatico
+    ){
+      select.value =
+        limiteAutomatico;
+    }
+
+  } catch(err){
+
+    console.log(err);
   }
 }
 
@@ -926,7 +972,19 @@ document
       mostrar ? "block" : "none";
 });
 
-cargarMeses();
+document
+.getElementById("selA")
+.addEventListener("change",
+actualizarDiaLimiteAutomatico);
+
+document
+.getElementById("selB")
+.addEventListener("change",
+actualizarDiaLimiteAutomatico);
+
+cargarMeses().then(() => {
+  actualizarDiaLimiteAutomatico();
+});
 </script>
 </body>
 </html>
