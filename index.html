@@ -148,9 +148,10 @@ html, body {
 .resumen-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 .rcard {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 16px 12px;
+  border-radius: 14px; padding: 16px 10px;
   position: relative;
   overflow: hidden;
+  min-width: 0;
 }
 .rcard::before {
   content: '';
@@ -168,11 +169,12 @@ html, body {
 }
 .rcard-val {
   font-family: var(--font-num);
-  font-size: 22px; font-weight: 700;
-  color: var(--text); line-height: 1.1; letter-spacing: 0.3px;
+  font-size: clamp(15px, 5.2vw, 22px); font-weight: 700;
+  color: var(--text); line-height: 1.15; letter-spacing: 0.1px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 .rcard-sub { font-size: 13px; font-weight: 600; margin-top: 8px; }
 .rcard-nota { 
