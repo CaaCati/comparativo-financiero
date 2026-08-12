@@ -487,6 +487,7 @@ html, body {
   body { background: #fff !important; color: #111 !important; }
   .header, .selector-wrap, .btn-imprimir, #loading { display: none !important; }
   #vistaInforme { display: block !important; padding: 0; }
+  #vistaInforme, #vistaInforme * { color: #111 !important; }
   .inf-tabla-wrap {
     background: #fff !important; border: 1px solid #ddd !important;
     overflow: visible; break-inside: avoid;
@@ -494,15 +495,14 @@ html, body {
   .inf-tabla { font-size: 8.5px; }
   .inf-tabla th, .inf-tabla td { padding: 3px 6px; }
   .inf-tabla thead th, .inf-tabla tbody td:first-child, .inf-tabla thead th:first-child {
-    background: #f4f4f4 !important; color: #111 !important;
+    background: #f4f4f4 !important;
   }
-  .inf-tabla tbody td { color: #111 !important; border-bottom: 1px solid #eee !important; }
-  .inf-tabla tr.inf-fila-total td { background: #ececec !important; }
-  .inf-header-titulo, .inf-header-periodo, .inf-header-fecha, .inf-header-sub, .inf-cat-nombre { color: #111 !important; }
+  .inf-tabla tbody td { border-bottom: 1px solid #eee !important; }
+  .inf-tabla tr.inf-fila-total td { background: #ececec !important; font-weight: 800 !important; }
   .inf-header { border-bottom-color: var(--naranja) !important; }
   .inf-chart-wrap { background: #fff !important; border: 1px solid #ddd !important; break-inside: avoid; }
   .inf-total-final { background: var(--naranja) !important; }
-  .inf-total-final-val, .inf-total-final-label { color: #fff !important; }
+  #vistaInforme .inf-total-final-val, #vistaInforme .inf-total-final-label { color: #fff !important; }
 }
 </style>
 </head>
@@ -1159,6 +1159,9 @@ function montoConceptoMes(porMes, mes, tipo, cat, concepto) {
 function totalCategoriaMes(porMes, mes, tipo, cat) {
   return (porMes[mes][tipo][cat] || []).reduce((s, i) => s + i.monto, 0);
 }
+function totalInformativoMes(porMes, mes, tipo, cats) {
+  return cats.reduce((s, cat) => s + totalCategoriaMes(porMes, mes, tipo, cat), 0);
+}
 
 function renderInforme(data) {
 
@@ -1169,6 +1172,9 @@ function renderInforme(data) {
 
   const hoy = new Date().toLocaleDateString("es-AR", { day: "2-digit", month: "long", year: "numeric" });
   const headMeses = meses.map(m => `<th>${labelMesCorto(m)}</th>`).join("") + `<th>Total</th>`;
+
+  const subsMes = meses.map(m => totalInformativoMes(porMes, m, "ingresos", CATS_INFORMATIVAS));
+  const totSubs = subsMes.reduce((s, v) => s + v, 0);
 
   let html = `
   <div class="inf-header">
@@ -1183,8 +1189,9 @@ function renderInforme(data) {
       <thead><tr><th>Resumen</th>${headMeses}</tr></thead>
       <tbody>
         <tr><td>Ingresos</td>${porMesTotales.map(p => `<td>${fmt(p.ingresos)}</td>`).join("")}<td>${fmt(totIng)}</td></tr>
+        <tr><td>Subsidios <span class="info-badge">informativo</span></td>${subsMes.map(v => `<td>${fmt(v)}</td>`).join("")}<td>${fmt(totSubs)}</td></tr>
         <tr><td>Egresos</td>${porMesTotales.map(p => `<td>${fmt(p.egresos)}</td>`).join("")}<td>${fmt(totEgr)}</td></tr>
-        <tr class="inf-fila-total"><td>Saldo</td>${porMesTotales.map(p => `<td class="${p.saldo>=0?'pos':'neg'}">${fmt(p.saldo)}</td>`).join("")}<td class="${saldo>=0?'pos':'neg'}">${fmt(saldo)}</td></tr>
+        <tr class="inf-fila-total"><td>Saldo</td>${porMesTotales.map(p => `<td>${fmt(p.saldo)}</td>`).join("")}<td>${fmt(saldo)}</td></tr>
       </tbody>
     </table>
   </div>`;
