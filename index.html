@@ -348,6 +348,162 @@ html, body {
   display: none; padding: 50px 20px;
   text-align: center; color: var(--text-muted); font-size: 13px;
 }
+
+/* ══════════════════════════════════════════
+   MÓDULO INFORME
+══════════════════════════════════════════ */
+
+.informe-submodo {
+  display: flex; gap: 6px; margin-bottom: 10px;
+}
+.submodo-btn {
+  flex: 1; text-align: center;
+  background: var(--surface2); color: var(--text-dim);
+  border: 1px solid var(--border2); border-radius: 8px;
+  padding: 8px 4px; font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; letter-spacing: 0.2px;
+}
+.submodo-btn.activo {
+  background: var(--naranja-glow); color: var(--naranja-light);
+  border-color: rgba(240,120,32,0.4);
+}
+
+.informe-periodo-bloque { display: none; }
+.informe-periodo-bloque.activo { display: block; }
+
+.informe-rango-row { display: flex; align-items: center; gap: 8px; }
+.informe-rango-row select { flex: 1; min-width: 0; }
+.rango-flecha { color: var(--naranja); font-size: 14px; flex-shrink: 0; }
+
+.multi-meses {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+  max-height: 190px; overflow-y: auto;
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 8px;
+}
+.multi-mes-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--text-dim);
+  padding: 5px 6px; border-radius: 6px; cursor: pointer;
+  -webkit-user-select: none; user-select: none;
+}
+.multi-mes-item:active { background: var(--surface3); }
+.multi-mes-item input { accent-color: var(--naranja); flex-shrink: 0; }
+.multi-mes-item.marcado { color: var(--text); font-weight: 600; }
+
+/* ── vista imprimible ── */
+#vistaInforme { display: none; padding: 14px 14px 90px; }
+
+.inf-header {
+  text-align: center; padding: 4px 0 18px;
+  border-bottom: 2px solid var(--naranja); margin-bottom: 18px;
+}
+.inf-header-titulo {
+  font-family: 'Cinzel', serif; font-size: 13px;
+  letter-spacing: 1.5px; color: var(--text);
+}
+.inf-header-sub {
+  font-size: 12px; color: var(--naranja-light); margin-top: 4px;
+}
+.inf-header-periodo {
+  font-family: var(--font-num); font-size: 19px; font-weight: 700;
+  color: var(--text); margin-top: 10px; letter-spacing: 0.2px;
+}
+.inf-header-fecha {
+  font-size: 10.5px; color: var(--text-muted); margin-top: 4px;
+}
+
+.inf-seccion-label {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); margin: 18px 0 8px; padding: 0 1px;
+}
+
+.inf-cat-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 2px; margin-top: 4px;
+}
+.inf-cat-nombre { font-size: 12.5px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+.inf-tabla-wrap {
+  border: 1px solid var(--border); border-radius: 10px;
+  overflow-x: auto; margin-bottom: 10px; background: var(--surface);
+}
+.inf-tabla { width: 100%; border-collapse: collapse; font-family: var(--font-num); font-size: 10.5px; }
+.inf-tabla th, .inf-tabla td { padding: 6px 9px; white-space: nowrap; }
+.inf-tabla thead th {
+  background: var(--surface2); color: var(--text-muted);
+  font-family: var(--font-ui); font-size: 8.5px; letter-spacing: 0.5px; text-transform: uppercase;
+  text-align: right; border-bottom: 1px solid var(--border2); position: sticky; top: 0;
+}
+.inf-tabla thead th:first-child, .inf-tabla td:first-child {
+  text-align: left; position: sticky; left: 0; background: var(--surface);
+}
+.inf-tabla thead th:first-child { background: var(--surface2); z-index: 2; }
+.inf-tabla tbody td { text-align: right; color: var(--text-dim); border-bottom: 1px solid var(--border); }
+.inf-tabla tbody td:first-child { color: var(--text-dim); font-weight: 500; white-space: normal; min-width: 150px; }
+.inf-tabla tbody tr:last-child td { border-bottom: none; }
+.inf-tabla tr.inf-fila-total td {
+  font-weight: 700; color: var(--text) !important; background: var(--surface2);
+  border-top: 1px solid var(--border2);
+}
+.inf-tabla tr.inf-fila-colapsada td:first-child { color: var(--text) !important; }
+
+.inf-total-final {
+  background: linear-gradient(135deg, var(--naranja-dark), var(--naranja));
+  border-radius: 12px; padding: 16px; margin: 18px 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.inf-total-final-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); font-weight: 700; }
+.inf-total-final-val { font-family: var(--font-num); font-size: 22px; font-weight: 700; color: #fff; }
+
+.inf-chart-wrap {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 10px 8px; margin-top: 8px;
+}
+.inf-chart-titulo {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 10px; padding: 0 4px; font-weight: 600;
+}
+.inf-chart-legend {
+  display: flex; gap: 14px; justify-content: center;
+  margin-top: 8px; flex-wrap: wrap;
+}
+.inf-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--text-dim); }
+.inf-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.btn-imprimir {
+  position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 60;
+  background: linear-gradient(135deg, var(--naranja-dark), var(--naranja));
+  color: #fff; border: none; border-radius: 10px;
+  padding: 14px; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  cursor: pointer; box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+  display: none;
+}
+.btn-imprimir.visible { display: block; }
+
+/* ── impresión ── */
+@page { size: A4 landscape; margin: 10mm; }
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  .header, .selector-wrap, .btn-imprimir, #loading { display: none !important; }
+  #vistaInforme { display: block !important; padding: 0; }
+  .inf-tabla-wrap {
+    background: #fff !important; border: 1px solid #ddd !important;
+    overflow: visible; break-inside: avoid;
+  }
+  .inf-tabla { font-size: 8.5px; }
+  .inf-tabla th, .inf-tabla td { padding: 3px 6px; }
+  .inf-tabla thead th, .inf-tabla tbody td:first-child, .inf-tabla thead th:first-child {
+    background: #f4f4f4 !important; color: #111 !important;
+  }
+  .inf-tabla tbody td { color: #111 !important; border-bottom: 1px solid #eee !important; }
+  .inf-tabla tr.inf-fila-total td { background: #ececec !important; }
+  .inf-header-titulo, .inf-header-periodo, .inf-header-fecha, .inf-header-sub, .inf-cat-nombre { color: #111 !important; }
+  .inf-header { border-bottom-color: var(--naranja) !important; }
+  .inf-chart-wrap { background: #fff !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  .inf-total-final { background: var(--naranja) !important; }
+  .inf-total-final-val, .inf-total-final-label { color: #fff !important; }
+}
 </style>
 </head>
 <body>
@@ -367,6 +523,7 @@ html, body {
   <select id="modoComparacion" style="width:100%;margin-bottom:10px;background:var(--surface2);color:#fff;border:1px solid var(--border2);border-radius:8px;padding:9px 10px;">
     <option value="financiero">Comparativo Financiero</option>
     <option value="coparticipacion">Coparticipación por Fecha</option>
+    <option value="informe">Informe Imprimible</option>
   </select>
 
   <div class="selector-label">Seleccioná los meses a comparar</div>
@@ -413,8 +570,40 @@ html, body {
     </select>
   </div>
 
+  <div id="grupoInforme" style="display:none;margin-top:10px;">
+
+    <div class="selector-label">Período del informe</div>
+    <div class="informe-submodo">
+      <div class="submodo-btn activo" data-submodo="unico" onclick="setSubmodoInforme('unico')">Mes único</div>
+      <div class="submodo-btn" data-submodo="rango" onclick="setSubmodoInforme('rango')">Rango</div>
+      <div class="submodo-btn" data-submodo="multiple" onclick="setSubmodoInforme('multiple')">Selección libre</div>
+    </div>
+
+    <div class="informe-periodo-bloque activo" id="bloqueUnico">
+      <select id="selInformeUnico" style="width:100%;background:var(--surface2);color:#fff;border:1px solid var(--border2);border-radius:8px;padding:9px 10px;"></select>
+    </div>
+
+    <div class="informe-periodo-bloque" id="bloqueRango">
+      <div class="informe-rango-row">
+        <select id="selInformeDesde"></select>
+        <span class="rango-flecha">→</span>
+        <select id="selInformeHasta"></select>
+      </div>
+    </div>
+
+    <div class="informe-periodo-bloque" id="bloqueMultiple">
+      <div class="multi-meses" id="multiMesesLista"></div>
+    </div>
+
+    <button class="btn-comparar" id="btnGenerarInforme" style="margin-top:10px;" onclick="cargarDatos()">GENERAR INFORME</button>
+
+  </div>
+
   <button class="btn-comparar" id="btnComparar" onclick="cargarDatos()">VER COMPARATIVO</button>
 </div>
+
+<div id="vistaInforme"></div>
+<button class="btn-imprimir" id="btnImprimir" onclick="window.print()">🖨️ IMPRIMIR INFORME</button>
 
 <div id="loading">
   <div class="spin"></div>
@@ -470,11 +659,15 @@ function colorCls(p, invertir) {
   return p === 0 ? "" : positivo ? "pos" : "neg";
 }
 
+let LISTA_MESES = [];
+
 async function cargarMeses() {
   try {
     const r = await fetch(SCRIPT_URL + "?accion=meses");
     const d = await r.json();
     if (d.error) throw new Error(d.error);
+
+    LISTA_MESES = d.meses;
 
     const selA = document.getElementById("selA");
     const selB = document.getElementById("selB");
@@ -492,9 +685,70 @@ async function cargarMeses() {
     } else if (d.meses.length === 1) {
       selA.value = selB.value = d.meses[0];
     }
+
+    poblarControlesInforme(d.meses);
   } catch (err) {
     mostrarError("No se pudo cargar la lista de meses: " + err.message);
   }
+}
+
+function poblarControlesInforme(meses) {
+  const selUnico = document.getElementById("selInformeUnico");
+  const selDesde = document.getElementById("selInformeDesde");
+  const selHasta = document.getElementById("selInformeHasta");
+  const multiLista = document.getElementById("multiMesesLista");
+
+  selUnico.innerHTML = "";
+  selDesde.innerHTML = "";
+  selHasta.innerHTML = "";
+  multiLista.innerHTML = "";
+
+  meses.forEach(m => {
+    const lbl = labelMes(m);
+    selUnico.innerHTML += `<option value="${m}">${lbl}</option>`;
+    selDesde.innerHTML += `<option value="${m}">${lbl}</option>`;
+    selHasta.innerHTML += `<option value="${m}">${lbl}</option>`;
+    multiLista.innerHTML += `
+      <label class="multi-mes-item" id="multiItem_${m}">
+        <input type="checkbox" value="${m}" onchange="marcarMultiMes('${m}', this.checked)">
+        ${lbl}
+      </label>`;
+  });
+
+  if (meses.length) {
+    selUnico.value = meses[meses.length - 1];
+    selDesde.value = meses[Math.max(0, meses.length - 3)];
+    selHasta.value = meses[meses.length - 1];
+  }
+}
+
+function marcarMultiMes(mes, marcado) {
+  document.getElementById("multiItem_" + mes).classList.toggle("marcado", marcado);
+}
+
+function setSubmodoInforme(sub) {
+  document.querySelectorAll(".submodo-btn").forEach(b => {
+    b.classList.toggle("activo", b.dataset.submodo === sub);
+  });
+  document.getElementById("bloqueUnico").classList.toggle("activo", sub === "unico");
+  document.getElementById("bloqueRango").classList.toggle("activo", sub === "rango");
+  document.getElementById("bloqueMultiple").classList.toggle("activo", sub === "multiple");
+}
+
+function mesesSeleccionadosInforme() {
+  const activo = document.querySelector(".submodo-btn.activo").dataset.submodo;
+
+  if (activo === "unico") {
+    return [document.getElementById("selInformeUnico").value];
+  }
+
+  if (activo === "rango") {
+    const desde = document.getElementById("selInformeDesde").value;
+    const hasta = document.getElementById("selInformeHasta").value;
+    return LISTA_MESES.filter(m => m >= desde && m <= hasta);
+  }
+
+  return Array.from(document.querySelectorAll("#multiMesesLista input:checked")).map(i => i.value);
 }
 
 async function actualizarDiaLimiteAutomatico() {
@@ -757,6 +1011,10 @@ async function cargarDatos() {
     return cargarCoparticipacion();
   }
 
+  if (modo === "informe") {
+    return cargarInforme();
+  }
+
   const mesA =
     document.getElementById("selA").value;
 
@@ -797,7 +1055,7 @@ async function cargarDatos() {
 }
 
 function setEstado(estado) {
-  ["loading","error-box","empty","contenido"].forEach(id => {
+  ["loading","error-box","empty","contenido","vistaInforme"].forEach(id => {
     document.getElementById(id).style.display = "none";
   });
   const el = document.getElementById(estado);
@@ -807,6 +1065,249 @@ function setEstado(estado) {
 function mostrarError(msg) {
   document.getElementById("error-box").textContent = "⚠ " + msg;
   setEstado("error-box");
+}
+
+/* ==========================================
+   INFORME IMPRIMIBLE
+========================================== */
+
+const CAT_COLAPSAR_INFORME = "Gastos Corrientes";
+
+async function cargarInforme() {
+
+  const meses = mesesSeleccionadosInforme().sort();
+
+  if (!meses.length) {
+    mostrarError("Elegí al menos un mes para el informe.");
+    return;
+  }
+
+  const btn = document.getElementById("btnGenerarInforme");
+  setEstado("loading");
+  btn.disabled = true;
+
+  try {
+
+    const r = await fetch(
+      `${SCRIPT_URL}?accion=informe&meses=${meses.join(",")}`
+    );
+
+    const d = await r.json();
+
+    if (d.error) throw new Error(d.error);
+
+    const data = armarDatosInforme(d);
+
+    renderInforme(data);
+    setEstado("vistaInforme");
+    document.getElementById("btnImprimir").classList.add("visible");
+
+  } catch (err) {
+
+    mostrarError(err.message);
+
+  } finally {
+
+    btn.disabled = false;
+  }
+}
+
+function armarDatosInforme(d) {
+
+  const porMesTotales = d.meses.map(mes => {
+    const mesData = d.porMes[mes] || { ingresos: {}, egresos: {} };
+    const totIngMes = sumarExcluyendo(mesData.ingresos, CATS_INFORMATIVAS);
+    const totEgrMes = sumarTodo(mesData.egresos);
+    return { mes, ingresos: totIngMes, egresos: totEgrMes, saldo: totIngMes - totEgrMes };
+  });
+
+  return { meses: d.meses, porMes: d.porMes, porMesTotales };
+}
+
+function labelPeriodoInforme(meses) {
+  if (meses.length === 1) return labelMes(meses[0]);
+  const esConsecutivo = meses.every((m, i) => {
+    if (i === 0) return true;
+    const [y1, m1] = meses[i-1].split("-").map(Number);
+    const [y2, m2] = m.split("-").map(Number);
+    return (y1 * 12 + m1) + 1 === (y2 * 12 + m2);
+  });
+  if (esConsecutivo) return labelMes(meses[0]) + " → " + labelMes(meses[meses.length - 1]);
+  return meses.map(labelMes).join(" · ");
+}
+
+function labelMesCorto(m) {
+  const [y, mo] = m.split("-");
+  return (MESES_LABEL[mo] || mo).slice(0, 3) + " " + y.slice(2);
+}
+
+function unionCategorias(porMes, meses, tipo) {
+  const set = new Set();
+  meses.forEach(m => Object.keys(porMes[m][tipo]).forEach(c => set.add(c)));
+  return [...set];
+}
+function unionConceptosCategoria(porMes, meses, tipo, cat) {
+  const set = new Set();
+  meses.forEach(m => (porMes[m][tipo][cat] || []).forEach(i => set.add(i.concepto)));
+  return [...set].sort((a, b) => a.localeCompare(b, "es"));
+}
+function montoConceptoMes(porMes, mes, tipo, cat, concepto) {
+  const items = porMes[mes][tipo][cat] || [];
+  const it = items.find(i => i.concepto === concepto);
+  return it ? it.monto : null;
+}
+function totalCategoriaMes(porMes, mes, tipo, cat) {
+  return (porMes[mes][tipo][cat] || []).reduce((s, i) => s + i.monto, 0);
+}
+
+function renderInforme(data) {
+
+  const { meses, porMes, porMesTotales } = data;
+  const totIng = porMesTotales.reduce((s, p) => s + p.ingresos, 0);
+  const totEgr = porMesTotales.reduce((s, p) => s + p.egresos, 0);
+  const saldo = totIng - totEgr;
+
+  const hoy = new Date().toLocaleDateString("es-AR", { day: "2-digit", month: "long", year: "numeric" });
+  const headMeses = meses.map(m => `<th>${labelMesCorto(m)}</th>`).join("") + `<th>Total</th>`;
+
+  let html = `
+  <div class="inf-header">
+    <div class="inf-header-titulo">MUNICIPALIDAD DE CAÁ CATÍ</div>
+    <div class="inf-header-sub">Informe Financiero</div>
+    <div class="inf-header-periodo">${labelPeriodoInforme(meses)}</div>
+    <div class="inf-header-fecha">Emitido el ${hoy}</div>
+  </div>
+
+  <div class="inf-tabla-wrap">
+    <table class="inf-tabla">
+      <thead><tr><th>Resumen</th>${headMeses}</tr></thead>
+      <tbody>
+        <tr><td>Ingresos</td>${porMesTotales.map(p => `<td>${fmt(p.ingresos)}</td>`).join("")}<td>${fmt(totIng)}</td></tr>
+        <tr><td>Egresos</td>${porMesTotales.map(p => `<td>${fmt(p.egresos)}</td>`).join("")}<td>${fmt(totEgr)}</td></tr>
+        <tr class="inf-fila-total"><td>Saldo</td>${porMesTotales.map(p => `<td class="${p.saldo>=0?'pos':'neg'}">${fmt(p.saldo)}</td>`).join("")}<td class="${saldo>=0?'pos':'neg'}">${fmt(saldo)}</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+
+  html += `<div class="inf-seccion-label">Ingresos</div>`;
+  unionCategorias(porMes, meses, "ingresos").forEach(cat => {
+    html += buildTablaCategoria(porMes, meses, "ingresos", cat, getIconoIng(cat), CATS_INFORMATIVAS.includes(cat));
+  });
+
+  html += `<div class="inf-seccion-label">Egresos</div>`;
+  unionCategorias(porMes, meses, "egresos").filter(c => c !== CAT_COLAPSAR_INFORME).forEach(cat => {
+    html += buildTablaCategoria(porMes, meses, "egresos", cat, getIconoEgr(cat), false);
+  });
+
+  html += buildTablaColapsada(porMes, meses);
+
+  html += `
+  <div class="inf-total-final">
+    <div class="inf-total-final-label">Resultado del período</div>
+    <div class="inf-total-final-val">${fmt(saldo)}</div>
+  </div>`;
+
+  if (meses.length >= 2) {
+    html += `
+    <div class="inf-chart-wrap">
+      <div class="inf-chart-titulo">Evolución mensual</div>
+      ${buildEvolucionSVG(porMesTotales)}
+      <div class="inf-chart-legend">
+        <div class="inf-legend-item"><span class="inf-legend-dot" style="background:#27ae60"></span>Ingresos</div>
+        <div class="inf-legend-item"><span class="inf-legend-dot" style="background:#e74c3c"></span>Egresos</div>
+        <div class="inf-legend-item"><span class="inf-legend-dot" style="background:#F07820"></span>Saldo</div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById("vistaInforme").innerHTML = html;
+}
+
+function buildTablaCategoria(porMes, meses, tipo, cat, icono, esInfo) {
+  const conceptos = unionConceptosCategoria(porMes, meses, tipo, cat);
+  const infoBadge = esInfo ? `<span class="info-badge">informativo</span>` : "";
+  const headMeses = meses.map(m => `<th>${labelMesCorto(m)}</th>`).join("") + `<th>Total</th>`;
+
+  let rows = "";
+  conceptos.forEach(c => {
+    const valores = meses.map(m => montoConceptoMes(porMes, m, tipo, cat, c));
+    const total = valores.reduce((s, v) => s + (v || 0), 0);
+    rows += `<tr><td>${c}</td>${valores.map(v => `<td>${v === null ? "—" : fmt(v)}</td>`).join("")}<td>${fmt(total)}</td></tr>`;
+  });
+
+  const totalesMes = meses.map(m => totalCategoriaMes(porMes, m, tipo, cat));
+  const totalCat = totalesMes.reduce((s, v) => s + v, 0);
+  rows += `<tr class="inf-fila-total"><td>Total</td>${totalesMes.map(v => `<td>${fmt(v)}</td>`).join("")}<td>${fmt(totalCat)}</td></tr>`;
+
+  return `
+  <div class="inf-cat-header"><span>${icono}</span><span class="inf-cat-nombre">${cat} ${infoBadge}</span></div>
+  <div class="inf-tabla-wrap">
+    <table class="inf-tabla">
+      <thead><tr><th>Concepto</th>${headMeses}</tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
+function buildTablaColapsada(porMes, meses) {
+  const totalesMes = meses.map(m => totalCategoriaMes(porMes, m, "egresos", CAT_COLAPSAR_INFORME));
+  const total = totalesMes.reduce((s, v) => s + v, 0);
+  const headMeses = meses.map(m => `<th>${labelMesCorto(m)}</th>`).join("") + `<th>Total</th>`;
+
+  return `
+  <div class="inf-cat-header"><span>📋</span><span class="inf-cat-nombre">${CAT_COLAPSAR_INFORME} <span class="info-badge">solo total del período</span></span></div>
+  <div class="inf-tabla-wrap">
+    <table class="inf-tabla">
+      <thead><tr><th>Concepto</th>${headMeses}</tr></thead>
+      <tbody>
+        <tr class="inf-fila-colapsada inf-fila-total"><td>${CAT_COLAPSAR_INFORME}</td>${totalesMes.map(v => `<td>${fmt(v)}</td>`).join("")}<td>${fmt(total)}</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+}
+
+
+function buildEvolucionSVG(porMes) {
+
+  const W = 320, H = 180, padL = 34, padR = 10, padT = 10, padB = 24;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+
+  const valores = porMes.flatMap(p => [p.ingresos, p.egresos, p.saldo]);
+  let min = Math.min(0, ...valores), max = Math.max(...valores);
+  if (min === max) { min -= 1; max += 1; }
+  const rango = max - min;
+
+  const x = i => padL + (porMes.length === 1 ? plotW / 2 : (i / (porMes.length - 1)) * plotW);
+  const y = v => padT + plotH - ((v - min) / rango) * plotH;
+
+  const linea = vals => vals.map((v, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+
+  const gridY = [0, 0.25, 0.5, 0.75, 1].map(f => {
+    const val = min + rango * f;
+    return `<line x1="${padL}" y1="${y(val).toFixed(1)}" x2="${W - padR}" y2="${y(val).toFixed(1)}" stroke="var(--border2)" stroke-width="1"/>`;
+  }).join("");
+
+  const lineaCero = min < 0 ? `<line x1="${padL}" y1="${y(0).toFixed(1)}" x2="${W-padR}" y2="${y(0).toFixed(1)}" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3,3"/>` : "";
+
+  const etiquetasX = porMes.map((p, i) => {
+    const lbl = labelMes(p.mes).split(" ")[0].slice(0, 3);
+    return `<text x="${x(i).toFixed(1)}" y="${H - 6}" font-size="8" fill="var(--text-muted)" text-anchor="middle">${lbl}</text>`;
+  }).join("");
+
+  const serie = (key, color) => {
+    const vals = porMes.map(p => p[key]);
+    const puntos = vals.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.6" fill="${color}"/>`).join("");
+    return `<path d="${linea(vals)}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${puntos}`;
+  };
+
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;">
+    ${gridY}
+    ${lineaCero}
+    ${serie('ingresos', '#27ae60')}
+    ${serie('egresos', '#e74c3c')}
+    ${serie('saldo', '#F07820')}
+    ${etiquetasX}
+  </svg>`;
 }
 
 function sumarExcluyendo(obj, excluir) {
@@ -959,13 +1460,21 @@ document
 .getElementById("modoComparacion")
 .addEventListener("change", function(){
 
-  const mostrar =
-    this.value === "coparticipacion";
+  const modo = this.value;
 
-  document
-    .getElementById("grupoDiaLimite")
-    .style.display =
-      mostrar ? "block" : "none";
+  document.getElementById("grupoDiaLimite").style.display =
+    modo === "coparticipacion" ? "block" : "none";
+
+  document.getElementById("grupoInforme").style.display =
+    modo === "informe" ? "block" : "none";
+
+  document.getElementById("btnComparar").style.display =
+    modo === "informe" ? "none" : "block";
+
+  document.getElementById("btnImprimir").classList.remove("visible");
+  document.getElementById("vistaInforme").style.display = "none";
+  document.getElementById("contenido").style.display = "none";
+  document.getElementById("empty").style.display = "none";
 });
 
 document
